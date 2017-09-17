@@ -136,3 +136,22 @@ gulp.task('clean', function(callback) {
   del('dist');
   return cache.clearAll(callback);
 })
+
+var runSequence = require('run-sequence');
+
+gulp.task('nom-de-la-tache', function(callback) {
+  runSequence('tache1', 'tache2', 'tache3', callback);
+});
+
+gulp.task('build', function (callback) {
+  runSequence('clean:dist',
+  ['sass', 'useref', 'images', 'fonts'],
+  callback
+  )
+})
+
+gulp.task('default', function (callback) {
+  runSequence(['sass','browserSync', 'watch'],
+  callback
+  )
+})
